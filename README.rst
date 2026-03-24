@@ -81,3 +81,9 @@ like the following command:
 
 
         python demo/demo_file.py
+
+
+Disclaimer
+----------
+
+Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.

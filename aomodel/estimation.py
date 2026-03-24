@@ -3,6 +3,7 @@ import aomodel.utils as utils
 import aomodel.pca as pca
 import aomodel._indexing as indexing
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
 
 def estimate_long_range_ar_parameters(training_data, time_lags, prediction_window_indices, predicted_components,
                                       num_low_pass_filters, low_pass_filter_params=None, cutoff_frequency=None,

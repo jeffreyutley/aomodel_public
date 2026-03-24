@@ -4,6 +4,7 @@ import matplotlib.animation as ani
 import aomodel
 import scipy
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
 
 def create_video(data, title='', mask=None, data2=None, title2='', figsize=None, cbar_scale=1.0, fontsize=None):
     """

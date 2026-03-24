@@ -1,5 +1,6 @@
 import numpy as np
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
 
 def vec_to_img(data_vec, mask):
     """

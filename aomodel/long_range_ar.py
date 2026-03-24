@@ -7,6 +7,8 @@ import warnings
 import aomodel._indexing as indexing
 from aomodel.prediction_window_structure import *
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
+
 class LongRangeAR:
     """
     Implements a **Long-Range Auto-Regressive** model for generating synthetic time series of vectors with the same

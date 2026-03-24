@@ -1,6 +1,7 @@
 import abc
 import numpy as np
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
 
 class PredictionWindowStructure(abc.ABC):
     """

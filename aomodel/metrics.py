@@ -2,6 +2,7 @@ import numpy as np
 import aomodel.utils as utils
 import aomodel.estimation as estimation
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
 
 def slopes_tps(data_values, locations=None, axis=2, time_block_size=None, sampling_frequency=None, remove_mean=True,
                use_overlapping_blocks=True):

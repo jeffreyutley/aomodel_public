@@ -3,6 +3,8 @@ import numpy as np
 import demo_utils
 import os
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
+
 """
 This file demonstrates how to use the ReVAR algorithm to generate synthetic data with the same statistics of measured
 data sets. This code i) generates synthetic data using a pre-trained ReVAR model and ii) compares the statistics of 

@@ -2,6 +2,8 @@ import aomodel
 import numpy as np
 import os
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
+
 """
 This file demonstrates how to estimate the parameters of ReVAR from input data. We show an example with two measured
 turbulent boundary layer (TBL) data sets F06 and F12. The result of this code is a pre-trained model (saved to file)

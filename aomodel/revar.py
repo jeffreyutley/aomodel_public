@@ -7,6 +7,7 @@ from datetime import timedelta
 import os
 import warnings
 
+# Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
 
 class ReVAR(LongRangeAR):
     """
