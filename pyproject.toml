@@ -9,7 +9,7 @@ description = "Synthetic time-series data generation"
 readme = "README.rst"
 license = { file = "LICENSE" }
 authors = [
-    { name = "aomodel development team", email = "buzzard@purdue.edu" }
+    { name = "aomodel development team", email = "jeffrey.utley@gmail.con" }
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
