@@ -81,6 +81,15 @@ source_suffix = {
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+#rst_epilog is used to add text to the end of all the parsed files
+rst_epilog = """
+.. raw:: html
+
+   <hr>
+   <p style="font-size: 0.95em; color: #666; text-align: left; margin-top: 2em; margin-bottom: 2em;">
+   Disclaimer: Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
+   </p>
+"""
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -115,6 +124,9 @@ html_theme_options = {
     'repository_url': 'https://github.com/jeffreyutley/aomodel_public',
     'use_repository_button': True,     # add a "link to repository" button
     'navigation_with_keys': False,
+    'footer_start': ['copyright', 'sphinx-version'],
+    'footer_end': ['theme-version'],
+    # 'extra_footer': '<p>This is a custom footnote appended to every page footer.</p>'
 }
 
 main_doc = 'index'
