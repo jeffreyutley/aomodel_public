@@ -12,7 +12,7 @@ must first be downloaded.
 Use the script ``get_demo_data_server.sh`` inside of the ``demo`` folder to automatically install the data and
 place it in the proper folder for the scripts ``demo_1_data_generation.py`` and ``demo_2_parameter_estimation.py``.
 
-Inside of the parent directory (the boiling_flow folder containing this file), run the following::
+Inside of the parent directory (the aomodel_public folder containing README.rst), run the following::
 
     source demo/get_demo_data_server.sh
 

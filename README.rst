@@ -60,7 +60,7 @@ Before running the demo script, download the measured data sets:
         place it in the proper folder for the scripts ``demo_1_data_generation.py`` and
         ``demo_2_parameter_estimation.py``.
 
-        Inside of the parent directory (the boiling_flow folder containing this file), run the following:
+        Inside of the parent directory (the aomodel_public folder containing this file), run the following:
 
         .. code-block::
 
@@ -74,7 +74,7 @@ Before running the demo script, download the measured data sets:
 
         Unzip the file and place the folder ``TBL_data`` inside of the ``data/demo`` directory.
 
-Run either of the demo scripts from the parent directory (the boiling_flow folder containing this file) with something
+Run either of the demo scripts from the parent directory (the aomodel_public folder containing this file) with something
 like the following command:
 
     .. code-block::
