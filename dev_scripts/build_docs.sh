@@ -7,7 +7,7 @@ cd ../docs
 make clean html
 
 echo ""
-echo "*** The html documentation is at aomodel/docs/build/html/index.html ***"
+echo "*** The html documentation is at aomodel_public/docs/build/html/index.html ***"
 echo ""
 
 cd ../dev_scripts
