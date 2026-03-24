@@ -4,10 +4,8 @@ AOMODEL
 =======
 
 This project includes a data-driven algorithm that generates synthetic time-series of images (of arbitrary duration)
-by estimating statistical parameters from an input time-series of images.
-
-..
-    Include more detailed description here.
+by estimating statistical parameters from an input time-series of images. Full documentation is available at
+https://aomodel-public.readthedocs.io .
 
 Installing
 ----------
