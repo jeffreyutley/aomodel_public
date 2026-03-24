@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aomodel"
+version = "0.1"
+description = "Synthetic time-series data generation"
+readme = "README.rst"
+license = { file = "LICENSE" }
+authors = [
+    { name = "aomodel development team", email = "buzzard@purdue.edu" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent"
+]
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.2.3"
+]
+
+[project.optional-dependencies]
+docs = [
+     "sphinx",
+     "sphinxcontrib-bibtex",
+     "sphinx-book-theme>=1.0.1",
+     "sphinx-design",
+     "sphinx-copybutton"
+]
+demo = [
+    "Pillow>=9.1",
+    "matplotlib",
+    "scipy"
+]
+
+[tool.setuptools.packages]
+find = {}
+
+[project.urls]
+source = "https://github.com/jeffreyutley/aomodel_public"

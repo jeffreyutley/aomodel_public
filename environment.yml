@@ -1,0 +1,22 @@
+name: aomodel
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.11
+  - pip
+  - setuptools
+  # Core dependencies
+  - numpy>=2.2.3
+  # Docs dependencies
+  - sphinx
+  - sphinxcontrib-bibtex
+  - sphinx-book-theme>=1.0.1
+  - sphinx-design
+  - sphinx-copybutton
+  # Demo dependencies
+  - matplotlib
+  - Pillow>=9.1
+  - scipy
+  - pip:
+      - -e .
