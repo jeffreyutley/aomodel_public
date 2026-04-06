@@ -17,7 +17,7 @@ This package can be used to:
 * Generate synthetic data with the desired statistics.
 * Evaluate the statistics of an input data set.
 
-For more information about the algorithm, see :cite:`Utley`.
+For more information about the algorithm, see :cite:`Utley2, Utley`.
 
 .. toctree::
    :hidden:

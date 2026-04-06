@@ -36,7 +36,7 @@ num_low_pass_filters = 2
 
 # Block sizes for the Temporal Power Spectrum (TPS) calculations:
 opd_tps_block_sizes = {'F06': 596, 'F12': 994}
-flow_tps_block_sizes = {'F06': 298, 'F12': 496}
+slopes_tps_block_sizes = {'F06': 298, 'F12': 496}
 
 # Parameters of plotting functions
 video_colorbar_scales = {'F06': 0.875, 'F12': 0.8}
@@ -89,9 +89,9 @@ for dataset in datasets:
 
     # Block sizes for TPS calculations:
     opd_tps_block_size = opd_tps_block_sizes[dataset]
-    flow_tps_block_size = flow_tps_block_sizes[dataset]
+    slopes_tps_block_size = slopes_tps_block_sizes[dataset]
 
-    # Calculates the RMS and flow and OPD TPS for the measured data:
+    # Calculates the RMS and slopes and OPD TPS for the measured data:
     measured_opd_rms = demo_utils.compute_rms(data_values=measured_data,
                                               mask=mask)
     frequencies_opd_tps, measured_opd_tps = (
@@ -99,11 +99,11 @@ for dataset in datasets:
                                                 time_block_size=opd_tps_block_size,
                                                 sampling_frequency=sampling_frequency,
                                                 remove_mean=True))
-    frequencies_flow_tps, measured_flow_tps = (
+    frequencies_slopes_tps, measured_slopes_tps = (
         aomodel.metrics.slopes_tps(data_values=measured_data[num_training_time_steps:],
                                    locations=pixel_spacing,
                                    axis=2,
-                                   time_block_size=flow_tps_block_size,
+                                   time_block_size=slopes_tps_block_size,
                                    sampling_frequency=sampling_frequency,
                                    remove_mean=True))
 
@@ -133,12 +133,12 @@ for dataset in datasets:
                                                                 time_block_size=opd_tps_block_size,
                                                                 sampling_frequency=sampling_frequency,
                                                                 remove_mean=True)[1]
-    estimated_flow_tps = aomodel.metrics.slopes_tps(data_values=synthetic_data,
-                                                    locations=pixel_spacing,
-                                                    axis=2,
-                                                    time_block_size=flow_tps_block_size,
-                                                    sampling_frequency=sampling_frequency,
-                                                    remove_mean=True)[1]
+    estimated_slopes_tps = aomodel.metrics.slopes_tps(data_values=synthetic_data,
+                                                      locations=pixel_spacing,
+                                                      axis=2,
+                                                      time_block_size=slopes_tps_block_size,
+                                                      sampling_frequency=sampling_frequency,
+                                                      remove_mean=True)[1]
 
     # Finds the spatial structure function values of the synthetic data:
     estimated_structure_function = aomodel.metrics.structure_function_2d(data=synthetic_data,
@@ -172,15 +172,15 @@ for dataset in datasets:
                         savefile=f'./demo/output/data_set_{dataset}_OPD_TPS.png')
 
     # Plots the TPS of the deflection angle for both the OPD values and the synthetic data:
-    demo_utils.plot_tps(frequencies=frequencies_flow_tps / 1_000,   # convert from [Hz] to [kHz]
-                        tps_values=measured_flow_tps,
-                        tps_values_2=estimated_flow_tps,
+    demo_utils.plot_tps(frequencies=frequencies_slopes_tps / 1_000,  # convert from [Hz] to [kHz]
+                        tps_values=measured_slopes_tps,
+                        tps_values_2=estimated_slopes_tps,
                         x_label='Frequency $f$ [kHz]',
                         y_label='TPS Value $S_{\\theta_x}(f)$',
-                        title=f'Data Set {dataset}: Flow Temporal Power Spectrum',
+                        title=f'Data Set {dataset}: Slopes Temporal Power Spectrum',
                         label1='Measured Data',
                         label2='Synthetic Data',
-                        savefile=f'./demo/output/data_set_{dataset}_flow_TPS.png')
+                        savefile=f'./demo/output/data_set_{dataset}_slopes_TPS.png')
 
     # Creates images of both structure functions:
     demo_utils.plot_structure_function_image(
@@ -196,8 +196,8 @@ for dataset in datasets:
     # Scalar metrics
     phase_tps_error = demo_utils.compute_nrmse(ground_truth_data=measured_opd_tps,
                                                estimated_data=estimated_opd_tps)
-    flow_tps_error = demo_utils.compute_nrmse(ground_truth_data=measured_flow_tps,
-                                              estimated_data=estimated_flow_tps)
+    slopes_tps_error = demo_utils.compute_nrmse(ground_truth_data=measured_slopes_tps,
+                                                estimated_data=estimated_slopes_tps)
     structure_function_error = demo_utils.compute_nrmse(ground_truth_data=measured_structure_function_sqrt,
                                                         estimated_data=estimated_structure_function_sqrt)
     opd_rms_error = np.abs(measured_opd_rms - estimated_opd_rms) / measured_opd_rms
@@ -207,7 +207,7 @@ for dataset in datasets:
     print("================================================")
 
     print(f"{'OPD TPS Error:':35s} {phase_tps_error}")
-    print(f"{'Flow TPS Error:':35s} {flow_tps_error}")
+    print(f"{'Slopes TPS Error:':35s} {slopes_tps_error}")
     print(f"{'Structure Function Error:':35s} {structure_function_error}")
     print(f"{'OPD_rms Error:':35s} {opd_rms_error}")
 
