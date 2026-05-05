@@ -2,13 +2,12 @@ import numpy as np
 
 # Approved for public release; distribution is unlimited. Public Affairs release approval # AFRL-2026-1309.
 
-def find_top_principal_components(singular_values, percent_variance):
+def find_top_principal_components(pc_variances, percent_variance):
     """
     Finds the top principal components containing the given percentage of the total variance.
 
     Args:
-        singular_values (ndarray): numpy 1-D array containing the singular values (i.e., the standard deviation of each
-            principal component) in descending order.
+        pc_variances (ndarray): numpy 1-D array containing the variance of each principal component.
         percent_variance (float): percentage of the total variance to look for.
 
     Returns:
@@ -16,18 +15,18 @@ def find_top_principal_components(singular_values, percent_variance):
         total variance.
     """
     assert ((percent_variance > 0) and (percent_variance <= 1.0))
-    assert ((singular_values.ndim == 1) and (singular_values >= 0).all())
-    assert np.all(np.diff(singular_values) <= 1e-14)    # Ensure that the singular values are in descending order
+    assert ((pc_variances.ndim == 1) and (pc_variances >= 0).all())
+    assert np.all(np.diff(pc_variances) <= 1e-14)    # Ensure that the variances are in descending order
 
-    total_variance = singular_values.sum()
+    total_variance = pc_variances.sum()
     threshold_variance = total_variance * percent_variance
 
-    # Find the first singular value for which the cumulative sum is at least the given percentage of the total sum:
-    cumulative_variance = np.cumsum(singular_values)
+    # Find the first principal component for which the cumulative sum is at least the given percentage of the total sum:
+    cumulative_variance = np.cumsum(pc_variances)
     threshold_variance_index = int(np.searchsorted(cumulative_variance, threshold_variance, side='left'))
 
     # Handle the case that you need all principal components to cover the given percent_variance:
-    num_components = min(threshold_variance_index + 1, len(singular_values))
+    num_components = min(threshold_variance_index + 1, len(pc_variances))
 
     return num_components
 
@@ -35,7 +34,7 @@ def find_top_principal_components(singular_values, percent_variance):
 
 def compute_pca(data):
     """
-    Computes the principal components and the associated singular values of an input array containing samples of a
+    Computes the principal components and their associated variances for an input array containing samples of a
     multivariate Gaussian distribution. Takes the Singular Value Decomposition (SVD) of the covariance matrix.
 
     Args:
@@ -48,8 +47,8 @@ def compute_pca(data):
         - **principal_components** (*ndarray*) -- numpy 2-D array of shape (vector dimensionality, vector
           dimensionality) containing the principal component matrix. The principal components are the columns of this
           matrix.
-        - **singular_values** (*ndarray*) -- numpy 2-D array of shape (vector dimensionality, vector dimensionality)
-          containing the singular values matrix. This matrix is diagonal with the singular values along the diagonal.
+        - **pc_variances** (*ndarray*) -- numpy 1-D array of shape (vector dimensionality,) containing the variance of
+          each principal component.
     """
     assert (data.ndim == 2)
 
@@ -63,10 +62,10 @@ def compute_pca(data):
     # Estimates the covariance matrix of the distribution:
     covariance_estimate = np.dot(data_mean_removed, data_mean_removed.T) / data_mean_removed.shape[1]
 
-    # Compute SVD to find principal components and singular values:
-    principal_components, singular_values = np.linalg.svd(covariance_estimate)[:2]
+    # Compute SVD to find principal components and their variances:
+    principal_components, pc_variances = np.linalg.svd(covariance_estimate)[:2]
 
-    return data_mean, principal_components, singular_values
+    return data_mean, principal_components, pc_variances
 
 
 def generative_pca_algorithm(num_samples, covariance_modulation_matrix, mean_vector=None):
@@ -79,7 +78,7 @@ def generative_pca_algorithm(num_samples, covariance_modulation_matrix, mean_vec
         num_samples (int): number of samples to generate.
         covariance_modulation_matrix (ndarray): numpy 2-D array of shape (random vector dimensionality, random vector
             dimensionality) containing a matrix which scales unit-variance white noise to have the desired spatial
-            covariance matrix. This matrix is determined by the matrices of principal components and singular values.
+            covariance matrix. This matrix is determined by the matrices of principal components their variances.
         mean_vector (ndarray, optional): [Default=None] numpy 1-D array of shape (random vector dimensionality,)
             containing the mean of the distribution.
 

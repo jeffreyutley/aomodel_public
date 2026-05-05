@@ -98,11 +98,11 @@ def estimate_long_range_ar_parameters(training_data, time_lags, prediction_windo
                                                            low_pass_filter_params=low_pass_filter_params)
 
     # Computes a spatial PCA from the residuals:
-    residuals_mean, residuals_principal_components, residuals_singular_values = pca.compute_pca(residuals)
+    residuals_mean, residuals_principal_components, residuals_pc_variances = pca.compute_pca(residuals)
 
     # Calculates the noise modulation matrix (which scales unit-variance white noise to map onto the spatial
     # distribution of the residuals) from the PCA:
-    noise_modulation = np.multiply(residuals_principal_components, np.sqrt(residuals_singular_values)[None, :])
+    noise_modulation = np.multiply(residuals_principal_components, np.sqrt(residuals_pc_variances)[None, :])
 
     # Return a dictionary of all learned parameters
     parameters = {

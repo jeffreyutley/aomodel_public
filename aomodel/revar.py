@@ -62,7 +62,7 @@ class ReVAR(LongRangeAR):
         # Initializes instance variables:
         self.data_mask = data_mask
         self.principal_components = None
-        self.singular_values = None
+        self.pc_variances = None
         self.standard_deviation_vector = None
         self.mean_vector = None
 
@@ -172,7 +172,7 @@ class ReVAR(LongRangeAR):
             assert (initial_vectors.shape == (self.vector_dimensionality, max(self.time_lags)))
         else:
             initial_white_noise = np.random.normal(size=(self.principal_components.shape[0], max(self.time_lags)))
-            initial_vectors = np.multiply(np.sqrt(self.singular_values)[:, None], initial_white_noise,
+            initial_vectors = np.multiply(np.sqrt(self.pc_variances)[:, None], initial_white_noise,
                                           out=initial_white_noise)
 
         # Generates synthetic data using the Long-Range AR model:
@@ -211,7 +211,7 @@ class ReVAR(LongRangeAR):
         save_arrays = {'prediction_window_mask': self._base_prediction_window_mask,
                        'noise_modulation': self.noise_modulation, 'residuals_mean': self.residuals_mean,
                        'prediction_weights': prediction_weights, 'time_lags': self.time_lags,
-                       'principal_components': self.principal_components, 'singular_values': self.singular_values,
+                       'principal_components': self.principal_components, 'pc_variances': self.pc_variances,
                        'standard_deviation_vector': self.standard_deviation_vector, 'mean_vector': self.mean_vector,
                        'data_mask': self.data_mask}
 
@@ -244,7 +244,7 @@ class ReVAR(LongRangeAR):
 
         # Saves PCA instance variables:
         self.principal_components = data['principal_components']
-        self.singular_values = data['singular_values']
+        self.pc_variances = data['pc_variances']
         self.standard_deviation_vector = data['standard_deviation_vector']
         self.mean_vector = data['mean_vector']
 
@@ -288,14 +288,14 @@ class ReVAR(LongRangeAR):
         data_normalized = np.nan_to_num(data_normalized, nan=0.0, posinf=0.0, neginf=0.0)
 
         # Take a spatial PCA of the data:
-        self.principal_components, self.singular_values = pca.compute_pca(data=data_normalized)[1:]
+        self.principal_components, self.pc_variances = pca.compute_pca(data=data_normalized)[1:]
 
         # Compute the principal coefficients:
         principal_coefficients = np.dot(self.principal_components.T, data_normalized)
 
         # Calculates the number of components to include in the subspace:
         if percent_variance is not None:
-            num_coefficients = pca.find_top_principal_components(self.singular_values, percent_variance)
+            num_coefficients = pca.find_top_principal_components(self.pc_variances, percent_variance)
 
             # Re-sets the prediction window indices of the linear time prediction model:
             self.create_model_structure(prediction_subspace_dimension=num_coefficients)
