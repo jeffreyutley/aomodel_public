@@ -50,13 +50,14 @@ The demo scripts ``demo_1_data_generation.py`` and ``demo_2_parameter_estimation
 ReVAR algorithm to i) generate synthetic data that matches the statistics of measured data sets and ii) estimate the
 parameters of ReVAR from measured data.
 
-Before running the demo script, download the measured data sets:
+Before running either demo script, download the measured data sets. Before running ``demo_1_data_generation.py``, you
+must also download pre-trained models. There are two options to download the data:
 
     Option 1. Install using shell script
 
-        Use the script ``get_demo_data_server.sh`` inside of the ``demo`` folder to automatically install the data and
-        place it in the proper folder for the scripts ``demo_1_data_generation.py`` and
-        ``demo_2_parameter_estimation.py``.
+        Use the script ``get_demo_data_server.sh`` inside of the ``demo`` folder to automatically install both the data
+        and the pre-trained models. This script also places the files in the proper folders for the scripts
+        ``demo_1_data_generation.py`` and ``demo_2_parameter_estimation.py``.
 
         Inside of the parent directory (the aomodel_public folder containing this file), run the following:
 
@@ -66,11 +67,13 @@ Before running the demo script, download the measured data sets:
 
     Option 2. Manual install
 
-        To manually install the data sets, visit the
-        `Bouman data repository <https://www.datadepot.rcac.purdue.edu/bouman/>` and download the .zip file
-        ``TBL_data.zip``.
+        To manually install the data sets and pre-trained models, visit the
+        `Bouman data repository <https://www.datadepot.rcac.purdue.edu/bouman/>` and download the .zip files
+        ``TBL_data.zip`` and ``pre_trained_models.zip`` (respectively).
 
-        Unzip the file and place the folder ``TBL_data`` inside of the ``data/demo`` directory.
+        Unzip the two files, then place the folder ``TBL_data`` inside of the ``demo/data`` directory and the files
+        ``F06_pre_trained_model.npz`` and ``F12_pre_trained_model.npz`` inside of the ``demo/pre_trained_models``
+        directory.
 
 Run either of the demo scripts from the parent directory (the aomodel_public folder containing this file) with something
 like the following command:
