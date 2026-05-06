@@ -7,8 +7,18 @@ This project includes a data-driven algorithm that generates synthetic time-seri
 by estimating statistical parameters from an input time-series of images. Full documentation is available at
 https://aomodel-public.readthedocs.io .
 
-Installing
-----------
+Installing from PyPI
+--------------------
+
+Use the following command:
+
+    .. code-block::
+
+        pip install aomodel
+
+
+Installing from Source
+----------------------
 1. Clone or download the repository:
 
     .. code-block::
